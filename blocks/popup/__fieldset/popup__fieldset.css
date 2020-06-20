@@ -1,0 +1,9 @@
+.popup__fieldset {
+  width: 83.25%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin: 0 0 16.4px 0;
+  padding: 0;
+}

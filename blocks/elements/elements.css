@@ -1,0 +1,23 @@
+.elements {
+  padding-top: 92px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 282px));
+  grid-template-rows: auto;
+  grid-gap: 18px 21px;
+  width: 70%;
+  justify-content: center;
+}
+
+@media (max-width : 1268px) {
+  .elements {
+    width: 82%;
+  }
+}
+
+@media (max-width : 882px) {
+  .elements {
+    grid-gap: 20px;
+    width: 95%;
+  }
+}
