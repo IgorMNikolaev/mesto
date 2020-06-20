@@ -16,4 +16,4 @@
 
 **ссылка**
 
-ссылка на сайт в GitHub Pages https://igormnikolaev.github.io/russian-travel/.  
+ссылка на сайт в GitHub Pages https://igormnikolaev.github.io/mesto/. 
