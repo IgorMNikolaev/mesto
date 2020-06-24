@@ -10,11 +10,11 @@
   line-height: 22px;
   text-align: center;
   color: #FFFFFF;
-  margin: 35.6px 0 36.51px 0;
+  margin: 18px 0 36.51px 0;
 }
 
 .popup__submit-button:hover {
-  background: rgba(0, 0, 0, 0.8);
+  opacity: .8;
 }
 
 @media (max-width: 470px) {

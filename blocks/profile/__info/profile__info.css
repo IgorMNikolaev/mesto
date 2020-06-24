@@ -1,10 +1,10 @@
-.profile__flexinfo {
+.profile__info {
   display: flex;
   justify-content: space-between;
 }
 
 @media (max-width :  680px) {
-  .profile__flexinfo {
+  .profile__info {
     flex-direction: column;
     align-items: center;
   }

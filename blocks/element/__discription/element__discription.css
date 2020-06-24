@@ -1,9 +1,9 @@
-.element__square {
-  width: 282px;
-  height: 79px;
+.element__discription {
+  
   background-color: #FFFFFF;
   border-radius: 0 0 10px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 25px;
 }

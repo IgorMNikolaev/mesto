@@ -1,4 +1,4 @@
-.profile__flexrow {
+.profile__name-edit {
   display: flex;
   align-items: flex-end;
   align-items: center;
@@ -6,7 +6,7 @@
 }
 
 @media (max-width :  680px) {
-  .profile__flexrow {
+  .profile__name-edit {
     margin: 14px 0 10.25px 0;
   }
 }

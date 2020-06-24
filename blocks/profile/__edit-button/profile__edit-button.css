@@ -12,8 +12,7 @@
 }
 
 .profile__edit-button:hover {
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  background-color: rgba(255, 255, 255, 0.6);
+  opacity: .6;
 }
 
 @media (max-width :  680px) {
