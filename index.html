@@ -28,64 +28,50 @@
           <button class="profile__add-button"></button>
         </section>
           <ul class="elements">
-            <li class="element">
-              <img src="images/Karach.png" class="element__image" alt="Карачаевск">
-              <div class="element__discription">
-                <h2 class="element__name">Карачаевск</h2>
-                <button class="element__like"></button>
-              </div>
-            </li>
-            <li class="element">
-              <img src="images/El-brus.png" class="element__image" alt="Гора Эльбрус">
-              <div class="element__discription">
-                <h2 class="element__name">Гора Эльбрус</h2>
-                <button class="element__like"></button>
-              </div>
-            </li>
-            <li class="element">
-              <img src="images/Dombai.png" class="element__image" alt="Домбай">
-              <div class="element__discription">
-                <h2 class="element__name">Домбай</h2>
-                <button class="element__like"></button>
-              </div>
-            </li>
-            <li class="element">
-              <img src="images/El-brus.png" class="element__image" alt="Гора Эльбрус">
-              <div class="element__discription">
-                <h2 class="element__name">Гора Эльбрус</h2>
-                <button class="element__like"></button>
-              </div>
-            </li>
-            <li class="element">
-              <img src="images/Dombai.png" class="element__image" alt="Домбай">
-              <div class="element__discription">
-                <h2 class="element__name">Домбай</h2>
-                <button class="element__like"></button>
-              </div>
-            </li>
-            <li class="element">
-              <img src="images/Karach.png" class="element__image" alt="Карачаево-Черкессия">
-              <div class="element__discription">
-                <h2 class="element__name">Карачаево-Черкессия</h2>
-                <button class="element__like"></button>
-              </div>
-            </li>
-          </ul>  
+          </ul>
       </main>
-      <footer class="footer"> 
+      <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
-      <section class="popup">
+      <section class="popup popup-edit">
         <div class="popup__container">
           <h3 class="popup__title">Редактировать профиль</h3>
-          <form class="popup__form">
+          <form class="popup__form popup__edit-form">
               <input type="text" name="name"  class="popup__input popup__input-name">
               <input type="text" name="discription"  class="popup__input popup__input-discription">
             <button type="submit" class="popup__submit-button">Сохранить</button>
           </form>
-          <button class="popup__close-button"></button>
+          <button class="popup__close-button popup-edit__close-button"></button>
         </div>
       </section>
+      <section class="popup popup-add">
+        <div class="popup__container">
+          <h3 class="popup__title">Новое место</h3>
+          <form class="popup__form popup__add-form">
+              <input type="text" name="place"  class="popup__input popup__input_place" placeholder="Название">
+              <input type="text" name="image"  class="popup__input popup__input_image" placeholder="Ссылка на картинку">
+            <button type="submit" class="popup__submit-button">Создать</button>
+          </form>
+          <button class="popup__close-button popup-add__close-button"></button>
+        </div>
+      </section>
+      <section class="popup popup-image">
+        <div class="popup__container-image">
+        <img class="popup__image" src="#" alt="большая картринка">
+        <h3 class="popup__name">Имя картинки</h3>
+        <button class="popup__close-button popup-image__close-button"></button>
+        </div>
+      </section>
+        <template id="element">
+          <li class="element">
+            <img src="" class="element__image" alt="картинка">
+            <div class="element__discription">
+              <h2 class="element__name"></h2>
+              <button class="element__like"></button>
+            </div>
+            <button class="element__trash-button popup-image__close-button"><img src="images/trash.png" class="element__trash" alt="trash"></button>
+          </li>
+        </template>
       <script src="script.js"></script>
     </body>
   </html>

@@ -20,5 +20,7 @@
 @media (max-width: 470px) {
     .popup__submit-button {
       width: 83.25%;
+      font-size: 14px;
+      line-height: 17px;
     }
   }
