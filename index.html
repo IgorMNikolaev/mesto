@@ -22,13 +22,13 @@
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <button class="profile__edit-button"></button>
               </div>
-              <p class="profile__discription">Исследователь океана</p>
+              <p class="profile__description">Исследователь океана</p>
             </div>
           </div>
           <button class="profile__add-button"></button>
         </section>
-          <ul class="elements">
-          </ul>
+        <ul class="elements">
+        </ul>
       </main>
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
@@ -38,7 +38,7 @@
           <h3 class="popup__title">Редактировать профиль</h3>
           <form class="popup__form popup__edit-form">
               <input type="text" name="name"  class="popup__input popup__input-name">
-              <input type="text" name="discription"  class="popup__input popup__input-discription">
+              <input type="text" name="description"  class="popup__input popup__input-description">
             <button type="submit" class="popup__submit-button">Сохранить</button>
           </form>
           <button class="popup__close-button popup-edit__close-button"></button>
@@ -62,16 +62,18 @@
         <button class="popup__close-button popup-image__close-button"></button>
         </div>
       </section>
-        <template id="element">
-          <li class="element">
-            <img src="" class="element__image" alt="картинка">
-            <div class="element__discription">
-              <h2 class="element__name"></h2>
-              <button class="element__like"></button>
-            </div>
-            <button class="element__trash-button popup-image__close-button"><img src="images/trash.png" class="element__trash" alt="trash"></button>
-          </li>
-        </template>
-      <script src="script.js"></script>
+      <template id="element">
+        <li class="element">
+          <img src="" class="element__image" alt="картинка">
+          <div class="element__description">
+            <h2 class="element__name"></h2>
+            <button class="element__like"></button>
+          </div>
+          <button class="element__trash-button popup-image__close-button"><img src="images/trash.png" class="element__trash" alt="trash"></button>
+        </li>
+      </template>
+      <script src="scripts/script.js"></script>
     </body>
   </html>
+
+

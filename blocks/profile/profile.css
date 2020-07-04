@@ -3,7 +3,7 @@
 @import url(./__edit-button/profile__edit-button.css);
 @import url(./__info/profile__info.css);
 @import url(./__name/profile__name.css);
-@import url(./__discription/profile__discription.css);
+@import url(./__description/profile__description.css);
 @import url(./__name-edit/profile__name-edit.css);
 @import url(./__text/profile__text.css);
 
@@ -32,5 +32,5 @@
   .profile {
     width: 100%;
     flex-direction: column;
-  }   
+  }
 }
