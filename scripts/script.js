@@ -40,31 +40,33 @@ const formElementEdit=popupEdit.querySelector('.popup__edit-form');
 const popupAdd = document.querySelector('.popup-add');
 const buttonAddClose = popupAdd.querySelector('.popup-add__close-button');
 const formElementAdd=popupAdd.querySelector('.popup__add-form');
-const inputname = formElementAdd.querySelector('.popup__input_place');
-const inputimage = formElementAdd.querySelector('.popup__input_image');
+const inputPlace = formElementAdd.querySelector('.popup__input_place');
+const inputImage = formElementAdd.querySelector('.popup__input_image');
 
 const popupImage = document.querySelector('.popup-image');
 const buttonImageClose = popupImage.querySelector('.popup-image__close-button');
+const popupImageScale = popupImage.querySelector('.popup__image');
+const popupImageName = popupImage.querySelector('.popup__name');
 
 const elements = document.querySelector('.elements')
 const elementTemplate = document.querySelector('#element').content;
 
 buttonEditOpen.addEventListener('click', openEdit);
 buttonAddOpen.addEventListener('click', openAdd);
-buttonEditClose.addEventListener('click', closePopup);
+buttonEditClose.addEventListener('click', () => togglePopup(popupEdit));
 formElementEdit.addEventListener('submit', editFormSubmitHandler);
-buttonAddClose.addEventListener('click', closePopup);
+buttonAddClose.addEventListener('click', () => togglePopup(popupAdd));
 formElementAdd.addEventListener('submit', addformSubmitHandler);
-buttonImageClose.addEventListener('click', closePopup);
+buttonImageClose.addEventListener('click', () => togglePopup(popupImage));
 
 function togglePopup(popup) {
   popup.classList.toggle('popup_opened');
 }
 
-function closePopup(event) {
-  const popupClose = event.target.closest('.popup')
-  togglePopup (popupClose);
-}
+ //function closePopup(event) {
+ // const popupClose = event.target.closest('.popup')
+ // togglePopup (popupClose);
+// }
 
 function openEdit(){
   togglePopup(popupEdit);
@@ -85,26 +87,26 @@ function editFormSubmitHandler(evt) {
 
 function openAdd() {
   togglePopup(popupAdd);
-  inputname.value = '';
-  inputimage.value = '';
+  inputPlace.value = '';
+  inputImage.value = '';
 }
 
 function addElement (name, image) {
   const newElement = elementTemplate.cloneNode(true);
+  const place = newElement.querySelector('.element__image');
   newElement.querySelector('.element__name').textContent = name;
-  newElement.querySelector('.element__image').alt = name;
-  newElement.querySelector('.element__image').src = image;
+  place.alt = name;
+  place.src = image;
   newElement.querySelector('.element__trash-button').addEventListener('click', deleteElement);
   newElement.querySelector('.element__like').addEventListener('click', likeElement);
-  newElement.querySelector('.element__image').addEventListener('click', scaleElement);
+  newElement.querySelector('.element__image').addEventListener('click', () => scaleElement(name, image));
   return newElement;
 }
 
 function addformSubmitHandler(evt) {
   evt.preventDefault();
-  const name = inputname.value;
-  const image = inputimage.value;
-  addElement(name, image);
+  const name = inputPlace.value;
+  const image = inputImage.value;
   elements.prepend(addElement(name, image));
   togglePopup(popupAdd);
 }
@@ -118,14 +120,11 @@ function likeElement(event) {
   event.target.classList.toggle('element__like_activ');
 }
 
-function scaleElement(event){
+function scaleElement(name, image){
   togglePopup(popupImage);
-  const image = event.target.closest('.element__image');
-  const parentName = event.target.closest('.element');
-  const name = parentName.querySelector('.element__name');
-  popupImage.querySelector('.popup__image').src = image.src;
-  popupImage.querySelector('.popup__image').alt = name.textContent;;
-  popupImage.querySelector('.popup__name').textContent = name.textContent;
+  popupImageName.textContent = name;
+  popupImageScale.src = image;
+  popupImageScale.alt = name;
 }
 
 initialElements.forEach(function (element) {
@@ -133,5 +132,4 @@ initialElements.forEach(function (element) {
   const image = element.image;
   elements.append(addElement(name, image));
 });
-
 
