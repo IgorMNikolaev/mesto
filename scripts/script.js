@@ -56,13 +56,13 @@ const popupClose = document.querySelector('.popup');
 buttonEditOpen.addEventListener('click', openEdit);
 buttonAddOpen.addEventListener('click', openAdd);
 popupEdit.addEventListener('click', () => closePopup(event, popupEdit));
-document.addEventListener('keydown', () => closePopup(event, popupEdit));
+//document.addEventListener('keydown', () => closePopup(event, popupEdit));
 formElementEdit.addEventListener('submit', editFormSubmitHandler);
 popupAdd.addEventListener('click', () => closePopup(event, popupAdd));
-document.addEventListener('keydown', () => closePopup(event, popupAdd));
+//document.addEventListener('keydown', () => closePopup(event, popupAdd));
 formElementAdd.addEventListener('submit', addformSubmitHandler);
 popupImage.addEventListener('click', () => closePopup(event, popupImage));
-document.addEventListener('keydown', () => closePopup(event, popupImage));
+//document.addEventListener('keydown', () => closePopup(event, popupImage));
 
 
 function closePopup(event, popup) {
@@ -71,6 +71,7 @@ function closePopup(event, popup) {
   } else if (event.key ==='Escape' && popup.classList.contains('popup_opened'))  {
     togglePopup(popup);
   }
+  removeKeyListener(popup);
 }
 
 function togglePopup(popup) {
@@ -81,6 +82,7 @@ function openEdit(){
   togglePopup(popupEdit);
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
+  addKeyListener(popupEdit);
 }
 
 function editFormSubmitHandler(evt) {
@@ -98,6 +100,7 @@ function openAdd() {
   togglePopup(popupAdd);
   inputPlace.value = '';
   inputImage.value = '';
+  addKeyListener(popupAdd);
 }
 
 function addElement (name, image) {
@@ -134,6 +137,7 @@ function scaleElement(name, image){
   popupImageName.textContent = name;
   popupImageScale.src = image;
   popupImageScale.alt = name;
+  addKeyListener(popupImage);
 }
 
 initialElements.forEach(function (element) {
@@ -142,3 +146,10 @@ initialElements.forEach(function (element) {
   elements.append(addElement(name, image));
 });
 
+function addKeyListener(popup){
+  document.addEventListener('keydown', () => closePopup(event, popup));
+}
+
+function removeKeyListener(popup){
+  document.removeEventListener('keydown', () => closePopup(event, popup));
+}
