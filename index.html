@@ -33,28 +33,43 @@
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
+
       <section class="popup popup-edit">
         <div class="popup__container">
           <h3 class="popup__title">Редактировать профиль</h3>
-          <form class="popup__form popup__edit-form">
-              <input type="text" name="name"  class="popup__input popup__input-name">
-              <input type="text" name="description"  class="popup__input popup__input-description">
+          <form class="popup__form popup__edit-form" novalidate>
+            <div class="popup__input-cover">
+              <input type="text" name="name"  class="popup__input popup__input-name" required minlength="2" maxlength="40">
+              <span class="popup__input-error"></span>
+            </div>
+            <div class="popup__input-cover">
+              <input type="text" name="description"  class="popup__input popup__input-description" required minlength="2" maxlength="200">
+              <span class="popup__input-error"></span>
+            </div>
             <button type="submit" class="popup__submit-button">Сохранить</button>
           </form>
           <button class="popup__close-button popup-edit__close-button"></button>
         </div>
       </section>
+
       <section class="popup popup-add">
         <div class="popup__container">
           <h3 class="popup__title">Новое место</h3>
-          <form class="popup__form popup__add-form">
-              <input type="text" name="place"  class="popup__input popup__input_place" placeholder="Название">
-              <input type="text" name="image"  class="popup__input popup__input_image" placeholder="Ссылка на картинку">
+          <form class="popup__form popup__add-form" novalidate>
+            <div class="popup__input-cover">
+              <input type="text" name="place"  class="popup__input popup__input_place" placeholder="Название" required maxlength="30">
+              <span class="popup__input-error" ></span>
+            </div>
+            <div class="popup__input-cover">
+              <input type="url" name="image"  class="popup__input popup__input_image" placeholder="Ссылка на картинку" required>
+              <span class="popup__input-error"></span>
+            </div>
             <button type="submit" class="popup__submit-button">Создать</button>
           </form>
           <button class="popup__close-button popup-add__close-button"></button>
         </div>
       </section>
+
       <section class="popup popup-image">
         <div class="popup__container-image">
         <img class="popup__image" src="#" alt="большая картринка">
@@ -72,6 +87,7 @@
           <button class="element__trash-button popup-image__close-button"><img src="images/trash.png" class="element__trash" alt="trash"></button>
         </li>
       </template>
+      <script src="scripts/validation.js"></script>
       <script src="scripts/script.js"></script>
     </body>
   </html>

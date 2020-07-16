@@ -48,25 +48,34 @@ const buttonImageClose = popupImage.querySelector('.popup-image__close-button');
 const popupImageScale = popupImage.querySelector('.popup__image');
 const popupImageName = popupImage.querySelector('.popup__name');
 
-const elements = document.querySelector('.elements')
+const elements = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element').content;
+
+const popupClose = document.querySelector('.popup');
 
 buttonEditOpen.addEventListener('click', openEdit);
 buttonAddOpen.addEventListener('click', openAdd);
-buttonEditClose.addEventListener('click', () => togglePopup(popupEdit));
+popupEdit.addEventListener('click', () => closePopup(event, popupEdit));
+document.addEventListener('keydown', () => closePopup(event, popupEdit));
 formElementEdit.addEventListener('submit', editFormSubmitHandler);
-buttonAddClose.addEventListener('click', () => togglePopup(popupAdd));
+popupAdd.addEventListener('click', () => closePopup(event, popupAdd));
+document.addEventListener('keydown', () => closePopup(event, popupAdd));
 formElementAdd.addEventListener('submit', addformSubmitHandler);
-buttonImageClose.addEventListener('click', () => togglePopup(popupImage));
+popupImage.addEventListener('click', () => closePopup(event, popupImage));
+document.addEventListener('keydown', () => closePopup(event, popupImage));
+
+
+function closePopup(event, popup) {
+  if (event.target.classList.contains('popup__close-button') || event.target.classList.contains('popup')) {
+  togglePopup(popup);
+  } else if (event.key ==='Escape' && popup.classList.contains('popup_opened'))  {
+    togglePopup(popup);
+  }
+}
 
 function togglePopup(popup) {
   popup.classList.toggle('popup_opened');
 }
-
- //function closePopup(event) {
- // const popupClose = event.target.closest('.popup')
- // togglePopup (popupClose);
-// }
 
 function openEdit(){
   togglePopup(popupEdit);
