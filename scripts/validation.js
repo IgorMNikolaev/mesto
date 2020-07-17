@@ -40,12 +40,16 @@ function checkValidity(inputList){
 
 function toggleButtonState(inputList, button, inactiveButtonClass) {
   if (checkValidity(inputList)) {
-    button.classList.add(inactiveButtonClass);
-    button.disabled=true;
+    disablingButton(button, inactiveButtonClass);
   } else {
     button.classList.remove(inactiveButtonClass);
     button.disabled=false;
   }
+}
+
+function disablingButton(button, inactiveButtonClass) {
+  button.classList.add(inactiveButtonClass);
+  button.disabled=true;
 }
 
 function enableValidation ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass, errorMassageInactiv, inputCover}) {
@@ -68,4 +72,9 @@ enableValidation({
   errorMassageInactiv: '.popup__input-error',
   inputCover: '.popup__input-cover'
 });
+
+
+
+
+
 

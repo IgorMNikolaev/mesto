@@ -58,12 +58,12 @@ popupImage.addEventListener('click', (event) => listenFocus(event, popupImage));
 
 function openPopup(popup){
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', (event) => escapeCheck(event, popup));
+  document.addEventListener('keydown', escapeCheck);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', (event) => escapeCheck(event, popup));
+  document.removeEventListener('keydown', escapeCheck);
 }
 
 function openEdit(){
@@ -74,15 +74,11 @@ function openEdit(){
 
 function openAdd() {
   openPopup(popupAdd);
+  const submitButton = 'popup__submit-button_disabled';
+  const button = popupAdd.querySelector('.popup__submit-button');
   inputPlace.value = '';
   inputImage.value = '';
-  disablingButton(popupAdd);
-}
-
-function disablingButton(popup) {
-  const button = popup.querySelector('.popup__submit-button')
-  button.classList.add('popup__submit-button_disabled');
-  button.disabled=true;
+  disablingButton(button, submitButton);
 }
 
 function editFormSubmitHandler(evt) {
@@ -130,8 +126,9 @@ function scaleElement(name, image){
   popupImageScale.alt = name;
 }
 
-function escapeCheck(event, popup) {
-  if (event.key ==='Escape')  {
+function escapeCheck(event) {
+  const popup = document.querySelector('.popup_opened');
+  if (event.key ==='Escape') {
     closePopup(popup);
   }
 }
