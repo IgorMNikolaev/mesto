@@ -11,7 +11,6 @@
 @import url(./__name/popup__name.css);
 @import url(./__input-cover/popup__input-cover.css);
 @import url(./__input-error/popup__input-error.css);
-@import url(./__input-error_activ/popup__input-error_activ.css);
 
 .popup {
   position: fixed;

@@ -58,7 +58,7 @@
           <form class="popup__form popup__add-form" novalidate>
             <div class="popup__input-cover">
               <input type="text" name="place"  class="popup__input popup__input_place" placeholder="Название" required maxlength="30">
-              <span class="popup__input-error" ></span>
+              <span class="popup__input-error"></span>
             </div>
             <div class="popup__input-cover">
               <input type="url" name="image"  class="popup__input popup__input_image" placeholder="Ссылка на картинку" required>
@@ -77,7 +77,7 @@
         <button class="popup__close-button popup-image__close-button"></button>
         </div>
       </section>
-      <template id="element">
+      <template class="template_element">
         <li class="element">
           <img src="" class="element__image" alt="картинка">
           <div class="element__description">
@@ -87,8 +87,9 @@
           <button class="element__trash-button popup-image__close-button"><img src="images/trash.png" class="element__trash" alt="trash"></button>
         </li>
       </template>
-      <script src="scripts/validation.js"></script>
-      <script src="scripts/script.js"></script>
+      <script type="module" src="scripts/script.js"></script>
+      <script type="module" src="scripts/card.js"></script>
+      <script type="module" src="scripts/validation.js"></script>
     </body>
   </html>
 

@@ -1,3 +1,6 @@
+import {Card} from './card.js';
+import {FormValidator} from './validation.js';
+
 const initialElements = [
   {
       name: 'Карачаевск',
@@ -25,6 +28,21 @@ const initialElements = [
   }
 ];
 
+const forms = [
+{formPopupSelector: '.popup__edit-form'},
+{formPopupSelector: '.popup__add-form'}
+];
+
+const config = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_invalid',
+  errorMassageInactiv: '.popup__input-error',
+  inputCover: '.popup__input-cover'
+}
+
+
 const profile = document.querySelector('.profile');
 const buttonEditOpen = profile.querySelector('.profile__edit-button');
 const profileName = profile.querySelector('.profile__name');
@@ -46,15 +64,14 @@ const popupImageScale = popupImage.querySelector('.popup__image');
 const popupImageName = popupImage.querySelector('.popup__name');
 
 const elements = document.querySelector('.elements');
-const elementTemplate = document.querySelector('#element').content;
 
+formElementAdd.addEventListener('submit', addFormSubmitHandler);
 buttonEditOpen.addEventListener('click', openEdit);
 buttonAddOpen.addEventListener('click', openAdd);
 popupEdit.addEventListener('click', (event) =>listenFocus(event, popupEdit));
-formElementEdit.addEventListener('submit', editFormSubmitHandler);
 popupAdd.addEventListener('click', (event) => listenFocus(event, popupAdd));
-formElementAdd.addEventListener('submit', addFormSubmitHandler);
 popupImage.addEventListener('click', (event) => listenFocus(event, popupImage));
+formElementEdit.addEventListener('submit', editFormSubmitHandler);
 
 function openPopup(popup){
   popup.classList.add('popup_opened');
@@ -90,42 +107,6 @@ function editFormSubmitHandler(evt) {
   closePopup(popupEdit);
 }
 
-function addFormSubmitHandler(evt) {
-  evt.preventDefault();
-  const name = inputPlace.value;
-  const image = inputImage.value;
-  elements.prepend(addElement(name, image));
-  closePopup(popupAdd);
-}
-
-function addElement (name, image) {
-  const newElement = elementTemplate.cloneNode(true);
-  const place = newElement.querySelector('.element__image');
-  newElement.querySelector('.element__name').textContent = name;
-  place.alt = name;
-  place.src = image;
-  newElement.querySelector('.element__trash-button').addEventListener('click', deleteElement);
-  newElement.querySelector('.element__like').addEventListener('click', likeElement);
-  newElement.querySelector('.element__image').addEventListener('click', () => scaleElement(name, image));
-  return newElement;
-}
-
-function deleteElement(event) {
-  const elementRemove = event.target.closest('.element');
-  elementRemove.remove();
-}
-
-function likeElement(event) {
-  event.target.classList.toggle('element__like_activ');
-}
-
-function scaleElement(name, image){
-  openPopup(popupImage);
-  popupImageName.textContent = name;
-  popupImageScale.src = image;
-  popupImageScale.alt = name;
-}
-
 function escapeCheck(event) {
   const popup = document.querySelector('.popup_opened');
   if (event.key ==='Escape') {
@@ -139,8 +120,40 @@ function listenFocus(event, popup) {
   }
 }
 
-initialElements.forEach(function (element) {
-  const name = element.name;
-  const image = element.image;
-  elements.append(addElement(name, image));
+function addFormSubmitHandler(evt) {
+  evt.preventDefault();
+  const info = {};
+  info.name = inputPlace.value;
+  info.image = inputImage.value;
+  elements.prepend(addElement(info));
+  closePopup(popupAdd);
+}
+
+function addElement (element) {
+  const card = new Card(element, '.template_element');
+  const newCard = card.generateCard ();
+  return newCard;
+}
+
+export function scaleElement(name, image){
+  openPopup(popupImage);
+  popupImageName.textContent = name;
+  popupImageScale.src = image;
+  popupImageScale.alt = name;
+}
+
+initialElements.forEach((element) => {
+  const card = new Card (element, '.template_element');
+  const newCard = card.generateCard ();
+  elements.append(newCard);
 });
+
+forms.forEach((item) => {
+  const formValidate = new FormValidator (config, item.formPopupSelector);
+  formValidate.enableValidation();
+});
+
+function disablingButton(button, inactiveButtonClass) {
+  button.classList.add(inactiveButtonClass);
+  button.disabled=true;
+}
