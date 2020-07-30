@@ -1,4 +1,4 @@
-
+import {scaleElement, openPopup, closePopup, escapeCheck} from './utils.js';
 
 export class Card {
   constructor (cardInfo, cardSelector) {
@@ -17,27 +17,29 @@ export class Card {
 
   generateCard () {
   this._card = this._getTemplate();
-  this._card.querySelector('.element__image').src = this._image;
-  this._card.querySelector('.element__name').textContent = this._name;
+  const elementImage = this._card.querySelector('.element__image');
+  const elementName = this._card.querySelector('.element__name');
+  const elementLike = this._card.querySelector('.element__like');
+  const elementTrashButton = this._card.querySelector('.element__trash-button');
+  elementImage.src = this._image;
+  elementName.textContent = this._name;
 
-  this._setEventListeners();
+  this._setEventListeners(elementImage, elementLike, elementTrashButton);
   return this._card;
   }
 
-  _setEventListeners() {
-    this._card.querySelector('.element__like').addEventListener('click',  () => this._likeElement());
-    this._card.querySelector('.element__trash-button').addEventListener('click',  () => this._deleteElement());
-    this._card.querySelector('.element__image').addEventListener('click',  () => scaleElement(this._name, this._image));
+  _setEventListeners(elementImage, elementLike, elementTrashButton) {
+    elementImage.addEventListener('click',  () => scaleElement(this._name, this._image));
+    elementLike.addEventListener('click',  () => this._likeElement(elementLike));
+    elementTrashButton.addEventListener('click',  () => this._deleteElement(elementTrashButton));
   }
 
-  _likeElement() {
-    this._card.querySelector('.element__like').classList.toggle('element__like_activ');
+  _likeElement(elementLike) {
+    elementLike.classList.toggle('element__like_activ');
   }
 
-  _deleteElement (){
-    const elementRemove = this._card.querySelector('.element__trash-button').closest('.element');
+  _deleteElement (elementTrashButton){
+    const elementRemove = elementTrashButton.closest('.element');
     elementRemove.remove();
   }
 }
-
-import {scaleElement} from './script.js';

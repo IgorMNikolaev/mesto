@@ -1,37 +1,8 @@
 import {Card} from './card.js';
-import {FormValidator} from './validation.js';
-
-const initialElements = [
-  {
-      name: 'Карачаевск',
-      image: 'images/Karach.png'
-  },
-  {
-      name: 'Гора Эльбрус',
-      image: 'images/El-brus.png'
-  },
-  {
-      name: 'Домбай',
-      image: 'images/Dombai.png'
-  },
-  {
-      name: 'Гора Эльбрус',
-      image: 'images/El-brus.png'
-  },
-  {
-      name: 'Домбай',
-      image: 'images/Dombai.png'
-  },
-  {
-      name: 'Карачаево-Черкессия',
-      image: 'images/Karach.png'
-  }
-];
-
-const forms = [
-{formPopupSelector: '.popup__edit-form'},
-{formPopupSelector: '.popup__add-form'}
-];
+import {FormValidator} from './FormValidator.js';
+import {openPopup, closePopup} from './utils.js';
+import {popupImage} from './constants.js';
+import {initialElements} from './initial.js';
 
 const config = {
   inputSelector: '.popup__input',
@@ -42,6 +13,10 @@ const config = {
   inputCover: '.popup__input-cover'
 }
 
+const forms = [
+  {formPopupSelector: '.popup__edit-form'},
+  {formPopupSelector: '.popup__add-form'}
+];
 
 const profile = document.querySelector('.profile');
 const buttonEditOpen = profile.querySelector('.profile__edit-button');
@@ -59,10 +34,6 @@ const formElementAdd=popupAdd.querySelector('.popup__add-form');
 const inputPlace = formElementAdd.querySelector('.popup__input_place');
 const inputImage = formElementAdd.querySelector('.popup__input_image');
 
-const popupImage = document.querySelector('.popup-image');
-const popupImageScale = popupImage.querySelector('.popup__image');
-const popupImageName = popupImage.querySelector('.popup__name');
-
 const elements = document.querySelector('.elements');
 
 formElementAdd.addEventListener('submit', addFormSubmitHandler);
@@ -73,20 +44,11 @@ popupAdd.addEventListener('click', (event) => listenFocus(event, popupAdd));
 popupImage.addEventListener('click', (event) => listenFocus(event, popupImage));
 formElementEdit.addEventListener('submit', editFormSubmitHandler);
 
-function openPopup(popup){
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', escapeCheck);
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escapeCheck);
-}
-
 function openEdit(){
   openPopup(popupEdit);
   inputName.value = profileName.textContent;
-  inputDescription.value = profileDescription.textContent;profileName
+  inputDescription.value = profileDescription.textContent;
+  clearInputs(popupEdit);
 }
 
 function openAdd() {
@@ -96,6 +58,7 @@ function openAdd() {
   inputPlace.value = '';
   inputImage.value = '';
   disablingButton(button, submitButton);
+  clearInputs(popupAdd);
 }
 
 function editFormSubmitHandler(evt) {
@@ -105,13 +68,6 @@ function editFormSubmitHandler(evt) {
   profileName.textContent = name;
   profileDescription.textContent = description;
   closePopup(popupEdit);
-}
-
-function escapeCheck(event) {
-  const popup = document.querySelector('.popup_opened');
-  if (event.key ==='Escape') {
-    closePopup(popup);
-  }
 }
 
 function listenFocus(event, popup) {
@@ -135,13 +91,6 @@ function addElement (element) {
   return newCard;
 }
 
-export function scaleElement(name, image){
-  openPopup(popupImage);
-  popupImageName.textContent = name;
-  popupImageScale.src = image;
-  popupImageScale.alt = name;
-}
-
 initialElements.forEach((element) => {
   const card = new Card (element, '.template_element');
   const newCard = card.generateCard ();
@@ -157,3 +106,13 @@ function disablingButton(button, inactiveButtonClass) {
   button.classList.add(inactiveButtonClass);
   button.disabled=true;
 }
+
+function clearInputs(popup) {
+  const inputList = Array.from(popup.querySelectorAll('.popup__input'));
+  inputList.forEach((input) => {
+    const inputError = input.closest('.popup__input-cover').querySelector('.popup__input-error');
+    input.classList.remove('popup__input_invalid');
+    inputError.textContent = '';
+  });
+}
+
