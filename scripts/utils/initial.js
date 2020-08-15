@@ -1,26 +1,31 @@
+import Karach from '../../images/Karach.png';
+import Elbrus from '../../images/El-brus.png';
+import Dombai from '../../images/Dombai.png';
+
+
  export const initialElements = [
   {
       name: 'Карачаевск',
-      image: 'images/Karach.png'
+      image: Karach
   },
   {
       name: 'Гора Эльбрус',
-      image: 'images/El-brus.png'
+      image:  Elbrus
   },
   {
       name: 'Домбай',
-      image: 'images/Dombai.png'
+      image: Dombai
   },
   {
       name: 'Гора Эльбрус',
-      image: 'images/El-brus.png'
+      image:  Elbrus
   },
   {
       name: 'Домбай',
-      image: 'images/Dombai.png'
+      image: Dombai
   },
   {
       name: 'Карачаево-Черкессия',
-      image: 'images/Karach.png'
+      image: Karach
   }
 ];

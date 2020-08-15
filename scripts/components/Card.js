@@ -1,10 +1,10 @@
-import {scaleElement, openPopup, closePopup, escapeCheck} from './utils.js';
+export default class Card {
+  constructor (cardInfo, {handleCardClick}, cardSelector) {
 
-export class Card {
-  constructor (cardInfo, cardSelector) {
     this._name = cardInfo.name;
     this._image = cardInfo.image;
     this._selector = cardSelector;
+    this.handleCardClick = handleCardClick;
   }
 
   _getTemplate () {
@@ -21,17 +21,18 @@ export class Card {
   const elementName = this._card.querySelector('.element__name');
   const elementLike = this._card.querySelector('.element__like');
   const elementTrashButton = this._card.querySelector('.element__trash-button');
+
   elementImage.src = this._image;
   elementName.textContent = this._name;
 
-  this._setEventListeners(elementImage, elementLike, elementTrashButton);
+  this._setEventListeners(elementLike, elementTrashButton, elementImage, elementName);
   return this._card;
   }
 
-  _setEventListeners(elementImage, elementLike, elementTrashButton) {
-    elementImage.addEventListener('click',  () => scaleElement(this._name, this._image));
+  _setEventListeners(elementLike, elementTrashButton, elementImage, elementName) {
     elementLike.addEventListener('click',  () => this._likeElement(elementLike));
     elementTrashButton.addEventListener('click',  () => this._deleteElement(elementTrashButton));
+    elementImage.addEventListener('click',  () => this.handleCardClick(elementName, elementImage));
   }
 
   _likeElement(elementLike) {

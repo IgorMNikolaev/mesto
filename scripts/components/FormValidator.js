@@ -1,12 +1,12 @@
-export class FormValidator {
+export default class FormValidator {
   constructor(config, formPopupSelector) {
-  this._inputSelector = config.inputSelector;//
+  this._inputSelector = config.inputSelector;
   this._submitButtonSelector = config.submitButtonSelector;
   this._inactiveButtonClass = config.inactiveButtonClass;
-  this._inputErrorClass = config.inputErrorClass;//
-  this._errorMassageInactiv = config.errorMassageInactiv;//
-  this._inputCover = config.inputCover;//
-  this._formPopupSelector = formPopupSelector;//
+  this._inputErrorClass = config.inputErrorClass;
+  this._errorMassageInactiv = config.errorMassageInactiv;
+  this._inputCover = config.inputCover;
+  this._formPopupSelector = formPopupSelector;
   }
 
   enableValidation() {
@@ -19,8 +19,8 @@ export class FormValidator {
   _setEventListeners(inputList, submitButton) {
     this._toggleButtonState(inputList, submitButton);
     inputList.forEach((input) => {
-      input.addEventListener('input',() =>this._toValidate(input));
-      input.addEventListener('input',() =>this. _toggleButtonState(inputList, submitButton));
+      input.addEventListener('input',() => this._toValidate(input));
+      input.addEventListener('input',() => this. _toggleButtonState(inputList, submitButton));
       submitButton.addEventListener ('submit',(evt) => {
         evt.preventDefault();
       });
