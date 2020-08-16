@@ -31,7 +31,7 @@ export default class Card {
 
   _setEventListeners(elementLike, elementTrashButton, elementImage, elementName) {
     elementLike.addEventListener('click',  () => this._likeElement(elementLike));
-    elementTrashButton.addEventListener('click',  () => this._deleteElement(elementTrashButton));
+    elementTrashButton.addEventListener('click',  () => this._deleteElement());
     elementImage.addEventListener('click',  () => this.handleCardClick(elementName, elementImage));
   }
 
@@ -39,8 +39,7 @@ export default class Card {
     elementLike.classList.toggle('element__like_activ');
   }
 
-  _deleteElement (elementTrashButton){
-    const elementRemove = elementTrashButton.closest('.element');
-    elementRemove.remove();
+  _deleteElement (){
+    this._card.remove()
   }
 }

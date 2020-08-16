@@ -1,16 +1,17 @@
-import Card from '../components/Card.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import FormValidator from '../components/FormValidator.js';
-import Section from '../components/Section.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import UserInfo from '../components/UserInfo.js';
-import {config, forms, buttonEditOpen, buttonAddOpen} from '../utils/constants.js';
-import {initialElements} from '../utils/initial';
-import '../../pages/index.css';
+import Card from '../scripts/components/Card.js';
+import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import FormValidator from '../scripts/components/FormValidator.js';
+import Section from '../scripts/components/Section.js';
+import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import UserInfo from '../scripts/components/UserInfo.js';
+import {config, forms, buttonEditOpen, buttonAddOpen} from '../scripts/utils/constants.js';
+import {initialElements} from '../scripts/utils/initial';
+import './index.css';
 
 buttonAddOpen.addEventListener('click', () => {
   popupAdd.openPopup();
-  popupAdd.disablingButton();
+  popupAdd.inactivSubmit();
+  popupAdd.clearInputs();
 });
 
 buttonEditOpen.addEventListener('click', () => {
@@ -55,6 +56,10 @@ const popupAdd = new PopupWithForm('.popup-add', {
     },
     '.elements');
     addCard.render();
+  },
+ disablingButton: (button) => {
+    const disableSubmit = new FormValidator(config, '.popup__add-form');
+    disableSubmit.disablingButton(button, 'popup__submit-button_disabled');
   }
 });
 

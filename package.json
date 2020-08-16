@@ -4,7 +4,7 @@
   "description": "Данный проект является учебным. \r Основная цель проекта отработка на практике базовых навыков по HTML, CSS и JS.",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf ./dist && webpack",
+    "build": "rimraf ./dist && webpack",
     "dev": "webpack-dev-server --open --watch"
   },
   "repository": {
