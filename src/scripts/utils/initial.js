@@ -29,3 +29,4 @@ import Dombai from '../../images/Dombai.png';
       image: Karach
   }
 ];
+

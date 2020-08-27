@@ -1,12 +1,24 @@
+//# sourceMappingURL=<url> (для CSS /*# sourceMappingURL=<url> */)
 import Popup from './Popup.js'
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, { submitForm, disablingButton }) {
+  constructor(popupSelector, { submitForm, disablingButton}) {
     super(popupSelector);
     this.submitButton = this._popup.querySelector('.popup__submit-button');
+    this.loader = this._popup.querySelector('.popup__loading')
     this.disablingButton = disablingButton;
     this.submitForm = submitForm;
     this._inputList = this._popup.querySelectorAll('.popup__input');
+  }
+
+  renderLoading(isLoading) {
+    if(isLoading) {
+      this.submitButton.classList.add('.popup__submit-button_invisible');
+      this.loader.classList.add('.popup__loading_visible');
+    } else {
+      this.submitButton.classList.remove('.popup__submit-button_invisible');
+      this.loader.classList.remove('.popup__loading_visible');
+    }
   }
 
   _getInputValues() {
@@ -36,6 +48,7 @@ export default class PopupWithForm extends Popup {
     this._popup.addEventListener('click', (event) => this._listenFocus(event));
     this._popup.addEventListener('submit', (event) => {
       event.preventDefault();
+      this.renderLoading(true);
       this.submitForm(this._getInputValues());
       this.closePopup();
     });
@@ -53,3 +66,4 @@ export default class PopupWithForm extends Popup {
    this.disablingButton(this.submitButton)
  }
 }
+

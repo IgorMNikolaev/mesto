@@ -1,10 +1,15 @@
 export default class Card {
-  constructor (cardInfo, {handleCardClick}, cardSelector) {
-
+  constructor (cardInfo, {handleCardClick}, cardSelector, {openConfirm}, {generateLike}, userId) {
+    this._owner = cardInfo.owner;
+    this._id = cardInfo._id;
     this._name = cardInfo.name;
-    this._image = cardInfo.image;
+    this._link = cardInfo.link;
+    this._likes = cardInfo.likes;
     this._selector = cardSelector;
     this.handleCardClick = handleCardClick;
+    this.openConfirm = openConfirm;
+    this.generateLike = generateLike;
+    this.userId = userId;
   }
 
   _getTemplate () {
@@ -21,25 +26,76 @@ export default class Card {
   const elementName = this._card.querySelector('.element__name');
   const elementLike = this._card.querySelector('.element__like');
   const elementTrashButton = this._card.querySelector('.element__trash-button');
-
-  elementImage.src = this._image;
+  const elementLikeScore = this._card.querySelector('.element__like-count');
+  elementLikeScore.textContent=this._setLikeScore(this._likes);
+  elementImage.src = this._link;
   elementName.textContent = this._name;
+  this._setLikeSelector(this.userId, this._likes, elementLike);////////////////////////////
+  this._chooseOwner(elementTrashButton);
 
-  this._setEventListeners(elementLike, elementTrashButton, elementImage, elementName);
+  this._setEventListeners(elementLike, elementTrashButton, elementImage, elementName, elementLikeScore);
   return this._card;
   }
 
-  _setEventListeners(elementLike, elementTrashButton, elementImage, elementName) {
-    elementLike.addEventListener('click',  () => this._likeElement(elementLike));
-    elementTrashButton.addEventListener('click',  () => this._deleteElement());
+  _setEventListeners(elementLike, elementTrashButton, elementImage, elementName, elementLikeScore) {
+    elementLike.addEventListener('click',  () => this.generateLike(this._likes, this._id, elementLikeScore, elementLike));
+    elementTrashButton.addEventListener('click',  () => this.openConfirm(this._id));
     elementImage.addEventListener('click',  () => this.handleCardClick(elementName, elementImage));
   }
 
-  _likeElement(elementLike) {
-    elementLike.classList.toggle('element__like_activ');
+  _addLikeElement(elementLike) {
+    elementLike.classList.add('element__like_activ');
+  }
+
+  _removeLikeElement(elementLike) {
+    elementLike.classList.remove('element__like_activ');
+  }
+
+
+  _chooseOwner(element) {
+    if (this._owner._id != this.userId) {
+      element.classList.add('element__trash-button-inactiv');
+    }
+  }
+
+ _setLikeSelector(userId, likes, elementLike) {
+   function haveId(like) {
+    return like._id === userId;
+
+  }
+  const haveUserId = likes.some(like => haveId(like))
+  if  (haveUserId) {
+    this._addLikeElement(elementLike)
+  } else {};
+}
+
+  _setLikeScore(likes) {
+    let i=0;
+    likes.forEach(like => {
+      i=i+1
+    });
+    return i;
   }
 
   _deleteElement (){
     this._card.remove()
   }
 }
+//_deleteElement (){
+//  this._card.remove()
+//}
+
+
+/*
+лайки.
+надо при клике на лайк проходить проверку:
+если нет в массиве лайков нашего айди, то =
+   пут запрос в массив.
+   из его ответа отрисовать новые лайки.
+   сменить стиль кнопки лайка.
+
+если есть в массиве=
+  делит запрос в массив.
+  из ответа отрисовать лайки.
+  сменить стиль кнопки лайка.
+*/

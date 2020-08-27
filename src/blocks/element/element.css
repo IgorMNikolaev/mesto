@@ -5,7 +5,9 @@
 @import url(./__description/element__description.css);
 @import url(./__trash/element__trash.css);
 @import url(./__trash-button/element__trash-button.css);
-
+@import url(./__trash-button/_inactiv/element__trash-button-inactiv.css);
+@import url(./__like-counter/element__like-counter.css);
+@import url(./__like-count/element__like-count.css);
 
 .element {
   position: relative;
