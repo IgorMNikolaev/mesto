@@ -28,6 +28,6 @@
   align-items: center;
   display: flex;
   visibility: hidden;
-
+  opacity: 0;
   transition: visibility .2s linear 0s, opacity .4s linear;
 }
