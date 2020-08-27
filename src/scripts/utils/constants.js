@@ -19,4 +19,3 @@ export const buttonEditOpen = profile.querySelector('.profile__edit-button');
 export const buttonAddOpen = profile.querySelector('.profile__add-button');
 export const buttonConfirmOpen = profile.querySelector('.profile__add-button');
 export const buttonAvatarOpen = profile.querySelector('.profile__avatar-button');
-

@@ -1,6 +1,3 @@
-import PopupWithConfirm from "./PopupWithConfirm";
-import { info } from "autoprefixer";
-
 export default class Api {
   constructor({baseUrl, headers}) {
     this.baseUrl = baseUrl;
@@ -124,14 +121,4 @@ export default class Api {
   getInitialData() {
     return Promise.all([this._getInitial(), this._getProfileInfo()]);
   }
-
 }
-
-//console.log(res)
-/*
-.then(res =>{
-  if (res.ok) {
-    res.json();
-  }
-})
-*/

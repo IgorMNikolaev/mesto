@@ -6,11 +6,10 @@ import Section from '../scripts/components/Section.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import { config, forms, profileAvatar, buttonEditOpen, buttonAddOpen, buttonAvatarOpen} from '../scripts/utils/constants.js';
-//import {initialElements} from '../scripts/utils/initial';
 import './index.css';
 import Api from '../scripts/components/Api.js';
 
-// Апи
+
 const api = new Api({
   baseUrl:'https://mesto.nomoreparties.co/v1/cohort-14',
     headers: {
@@ -19,11 +18,18 @@ const api = new Api({
     }
 });
 
-//инициализация
+const confirm = new PopupWithConfirm('.popup__confirm', {submitForm: (card) => {
+  api.deleteCard(card._id);
+  card._deleteElement();
+  }
+})
+confirm.setEventListeners();
+
+
+
+
 api.getInitialData(api._getProfileInfo(), api._getInitial()).then((res) => {
   const [cardsInfo, profileInfo] = res;
-  console.log(cardsInfo);
-  console.log(profileInfo);
   const user = new UserInfo({nameSelector:'.profile__name', descriptionSelector:'.profile__description', avatarSelector:'.profile__avatar'});
   const {name, about: description, avatar, _id} = profileInfo;
   user.setUserInfo({name, description, avatar});
@@ -55,15 +61,9 @@ api.getInitialData(api._getProfileInfo(), api._getInitial()).then((res) => {
           image.setEventListeners();
           }
         },
-        '.template_element',{openConfirm: () => {
-          const confirm = new PopupWithConfirm('.popup__confirm', {submitForm: () => {
-            console.log(_id)
-            api.deleteCard(_id);
-            card._deleteElement();
-            }
-          })
-          confirm.openPopup();
-          confirm.setEventListeners();
+        '.template_element',{
+          openConfirm: () => {
+          confirm.openPopup(card);
         }
       }, {
         generateLike: (likes, cardId, likeScore, elementLike) => {
@@ -94,7 +94,9 @@ api.getInitialData(api._getProfileInfo(), api._getInitial()).then((res) => {
 
   initiation.render();
 
-//попап эдит
+
+
+
 const popupEdit = new PopupWithForm('.popup-edit', {
   submitForm: (element) => {
     api.profileInfoEdit(element).then(() => {
@@ -113,7 +115,9 @@ const popupEdit = new PopupWithForm('.popup-edit', {
 
 popupEdit.setEventListeners();
 
-//попап эдд
+
+
+
 const popupAdd = new PopupWithForm('.popup-add', {
   submitForm: (element) => {
     console.log(element);
@@ -130,13 +134,7 @@ const popupAdd = new PopupWithForm('.popup-add', {
             }
           },
           '.template_element',{openConfirm: () => {
-            const confirm = new PopupWithConfirm('.popup__confirm', {submitForm: () => {
-              api.deleteCard(_id);
-              card._deleteElement();
-              }
-            })
-            confirm.openPopup();
-            confirm.setEventListeners();
+            confirm.openPopup(card);
           }
         }, {
           generateLike: (likes, cardId, likeScore, elementLike) => {
@@ -181,7 +179,7 @@ popupAdd.setEventListeners();
 })
 
 
-//попап аватар
+
 const popupAvatar = new PopupWithForm('.popup-avatar', {
   submitForm: (avatarUrl) => {
     const {image} = avatarUrl;
@@ -197,121 +195,8 @@ popupAvatar.setEventListeners();
 
 
 
-// Валидация
+
 forms.forEach((item) => {
   const formValidate = new FormValidator (config, item.formPopupSelector);
   formValidate.enableValidation();
 });
-
-
-/*/ инициация
-api._getInitial().then(items => {
-  const initiation = new Section({
-    items,
-    renderer: (element) => {
-      const card = new Card (element, {handleCardClick: (elementName, elementImage) => {
-        const image = new PopupWithImage('.popup-image');
-        image.openPopup(elementName, elementImage);
-        image.setEventListeners();
-        }
-      },
-
-      '.template_element',{openConfirm: (_id) => {
-        const confirm = new PopupWithConfirm('.popup__confirm', _id, {submitForm: (_id) => {
-          api.deleteCard(_id);
-          card._deleteElement();
-          }
-        })
-        confirm.openPopup();
-        confirm.setEventListeners();
-      }
-    });
-    const newCard = card.generateCard ();
-    initiation.addItem(newCard)
-    }
-  },
-  '.elements');
-
-  initiation.render();
-})
-*/
-
-
-
-
-
-/*const initiation = new Section({
-  items: initialElements,
-  renderer: (element) => {
-    const card = new Card (element, {handleCardClick: (elementName, elementImage) => {
-      const image = new PopupWithImage('.popup-image');
-      image.openPopup(elementName, elementImage);
-      image.setEventListeners();
-      }
-    },
-
-    '.template_element',{openConfirm: () =>{
-      const confirm = new PopupWithForm('.popup__confirm', { })
-      confirm.openPopup();
-      confirm.setEventListeners();                                              ///////////////////
-    }
-  });
-  const newCard = card.generateCard ();
-  initiation.addItem(newCard)
-  }
-},
-'.elements');
-
-initiation.render();
-*/
-
-
-//const card = element.owner._id = '096f27fccdb7c68c43905dc7'
-
-/*
-generateLike: (likes, cardId, likeScore, elementLike) => {
-  function haveId(like){
-    return like._id ===_id;
-  }
-  const haveUserId = likes.some(like => haveId(like))
-  console.log(haveUserId)
-  if  (!haveUserId) {
-    api.setLike(cardId)
-    .then((res) => {likeScore.textContent = card._setLikeScore(res.likes)})
-    .then(card._addLikeElement(elementLike));
-  } else {
-    api.deleteLike(cardId)
-    .then((res) => {likeScore.textContent = card._setLikeScore(res.likes)})
-    .then(card._removeLikeElement(elementLike));
-  }
-}
-
-function haveId(like) {
-    return like._id ===_id;
-  }
-const haveUserId = likes.some(like => haveId(like))
-if  (haveUserId) {
-  card._addLikeElement(elementLike)
-  } else
-}
-
- (info, {
-          handleCardClick: (elementName, elementImage) => {
-            const image = new PopupWithImage('.popup-image');
-            image.openPopup(elementName, elementImage);
-            image.setEventListeners();
-          }
-        },
-        '.template_element',{
-
-        openConfirm: (_id) =>{
-        const confirm = new PopupWithConfirm('.popup__confirm', _id, {submitForm: (_id) => {
-          api.deleteCard(_id);
-          card._deleteElement();
-          }
-        });
-        confirm.openPopup();
-        confirm.setEventListeners();
-      }
-    });
-*/

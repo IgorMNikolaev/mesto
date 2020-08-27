@@ -21,20 +21,20 @@ export default class Card {
   }
 
   generateCard () {
-  this._card = this._getTemplate();
-  const elementImage = this._card.querySelector('.element__image');
-  const elementName = this._card.querySelector('.element__name');
-  const elementLike = this._card.querySelector('.element__like');
-  const elementTrashButton = this._card.querySelector('.element__trash-button');
-  const elementLikeScore = this._card.querySelector('.element__like-count');
-  elementLikeScore.textContent=this._setLikeScore(this._likes);
-  elementImage.src = this._link;
-  elementName.textContent = this._name;
-  this._setLikeSelector(this.userId, this._likes, elementLike);////////////////////////////
-  this._chooseOwner(elementTrashButton);
+    this._card = this._getTemplate();
+    const elementImage = this._card.querySelector('.element__image');
+    const elementName = this._card.querySelector('.element__name');
+    const elementLike = this._card.querySelector('.element__like');
+    const elementTrashButton = this._card.querySelector('.element__trash-button');
+    const elementLikeScore = this._card.querySelector('.element__like-count');
+    elementLikeScore.textContent=this._setLikeScore(this._likes);
+    elementImage.src = this._link;
+    elementName.textContent = this._name;
+    this._setLikeSelector(this.userId, this._likes, elementLike);
+    this._chooseOwner(elementTrashButton);
 
-  this._setEventListeners(elementLike, elementTrashButton, elementImage, elementName, elementLikeScore);
-  return this._card;
+    this._setEventListeners(elementLike, elementTrashButton, elementImage, elementName, elementLikeScore);
+    return this._card;
   }
 
   _setEventListeners(elementLike, elementTrashButton, elementImage, elementName, elementLikeScore) {
@@ -81,21 +81,3 @@ export default class Card {
     this._card.remove()
   }
 }
-//_deleteElement (){
-//  this._card.remove()
-//}
-
-
-/*
-лайки.
-надо при клике на лайк проходить проверку:
-если нет в массиве лайков нашего айди, то =
-   пут запрос в массив.
-   из его ответа отрисовать новые лайки.
-   сменить стиль кнопки лайка.
-
-если есть в массиве=
-  делит запрос в массив.
-  из ответа отрисовать лайки.
-  сменить стиль кнопки лайка.
-*/

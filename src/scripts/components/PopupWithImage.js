@@ -10,7 +10,6 @@ export default class PopupWithImage extends Popup {
   openPopup(elementName, elementImage) {
     super.openPopup();
 
-
     this.popupImageName.textContent = elementName.textContent;
     this.popupImageScale.src = elementImage.src;
     this.popupImageScale.alt = elementName.textContent;

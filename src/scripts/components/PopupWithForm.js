@@ -1,4 +1,3 @@
-//# sourceMappingURL=<url> (для CSS /*# sourceMappingURL=<url> */)
 import Popup from './Popup.js'
 
 export default class PopupWithForm extends Popup {
