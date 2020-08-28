@@ -3,7 +3,7 @@ export const config = {
   submitButtonSelector: '.popup__submit-button',
   inactiveButtonClass: 'popup__submit-button_disabled',
   inputErrorClass: 'popup__input_invalid',
-  errorMassageInactiv: '.popup__input-error',
+  errorMessageInactiv: '.popup__input-error',
   inputCover: '.popup__input-cover'
 }
 

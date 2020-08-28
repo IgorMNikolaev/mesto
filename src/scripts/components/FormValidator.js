@@ -4,7 +4,7 @@ export default class FormValidator {
   this._submitButtonSelector = config.submitButtonSelector;
   this._inactiveButtonClass = config.inactiveButtonClass;
   this._inputErrorClass = config.inputErrorClass;
-  this._errorMassageInactiv = config.errorMassageInactiv;
+  this._errorMessageInactiv = config.errorMessageInactiv;
   this._inputCover = config.inputCover;
   this._formPopupSelector = formPopupSelector;
   }
@@ -28,7 +28,7 @@ export default class FormValidator {
   }
 
   _toValidate(input) {
-    const inputError = input.closest(this._inputCover).querySelector(this._errorMassageInactiv);
+    const inputError = input.closest(this._inputCover).querySelector(this._errorMessageInactiv);
 
     if (!input.validity.valid) {
     this._showError(input, inputError);

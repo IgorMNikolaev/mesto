@@ -70,10 +70,7 @@ export default class Card {
 }
 
   _setLikeScore(likes) {
-    let i=0;
-    likes.forEach(like => {
-      i=i+1
-    });
+    let i=likes.length;
     return i;
   }
 
