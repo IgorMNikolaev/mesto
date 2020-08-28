@@ -19,8 +19,11 @@ const api = new Api({
 });
 
 const confirm = new PopupWithConfirm('.popup__confirm', {submitForm: (card) => {
-  api.deleteCard(card._id);
-  card._deleteElement();
+  api.deleteCard(card._id)
+  .then(card._deleteElement())
+  .catch((err) => {
+    console.log(err);
+  })
   }
 })
 confirm.setEventListeners();
@@ -71,17 +74,22 @@ api.getInitialData(api._getProfileInfo(), api._getInitial()).then((res) => {
             return like._id ===_id;
           }
           const haveUserId = likes.some(like => haveId(like))
-          console.log(likes);
           if  (haveUserId) {
             api.deleteLike(cardId)
             .then((res) => {likeScore.textContent = card._setLikeScore(res.likes)})
-            .then(card._removeLikeElement(elementLike));
+            .then(card._removeLikeElement(elementLike))
+            .catch((err) => {
+              console.log(err);
+            });
             const index = likes.findIndex (item => item._id == _id);
             likes.splice(index, 1);
           } else {
             api.setLike(cardId)
             .then((res) => {likeScore.textContent = card._setLikeScore(res.likes)})
-            .then(card._addLikeElement(elementLike));
+            .then(card._addLikeElement(elementLike))
+            .catch((err) => {
+              console.log(err);
+            });
             likes.push(profileInfo);
           }
         }
@@ -105,10 +113,17 @@ const popupEdit = new PopupWithForm('.popup-edit', {
         const description = info.about;
         const avatar = info.avatar;
         user.setUserInfo({name, description, avatar});
-      }).finally(()=> {
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(()=> {
         popupEdit.renderLoading(false);
       });
 
+    })
+    .catch((err) => {
+      console.log(err);
     });
   }
 });
@@ -120,7 +135,6 @@ popupEdit.setEventListeners();
 
 const popupAdd = new PopupWithForm('.popup-add', {
   submitForm: (element) => {
-    console.log(element);
     const {name, image:link} = element;
     api.postNewCard(name, link).then((res) => {
     const addCard = new Section(
@@ -142,7 +156,6 @@ const popupAdd = new PopupWithForm('.popup-add', {
               return like._id ===_id;
             }
             const haveUserId = likes.some(like => haveId(like))
-            console.log(likes);
             if  (haveUserId) {
               api.deleteLike(cardId)
               .then((res) => {likeScore.textContent = card._setLikeScore(res.likes)})
@@ -164,7 +177,11 @@ const popupAdd = new PopupWithForm('.popup-add', {
     '.elements');
 
     addCard.render();
-    }).finally(()=> {
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(()=> {
       popupAdd.renderLoading(false);
     });
   },
@@ -177,7 +194,9 @@ const popupAdd = new PopupWithForm('.popup-add', {
 popupAdd.setEventListeners();
 
 })
-
+.catch((err) => {
+  console.log(err);
+})
 
 
 const popupAvatar = new PopupWithForm('.popup-avatar', {
@@ -185,7 +204,11 @@ const popupAvatar = new PopupWithForm('.popup-avatar', {
     const {image} = avatarUrl;
     api.profileAvatarEdit(image).then((res) => {
       profileAvatar.src = res.avatar;
-    }).finally(()=> {
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(()=> {
       popupAvatar.renderLoading(false);
     });
   }
